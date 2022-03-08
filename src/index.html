@@ -187,7 +187,14 @@
 
                     <!-- Route Battles -->
                     <div class="row justify-content-center no-gutters" data-bind="if: App.game.gameState === GameConstants.GameState.fighting">
-                        <div class="col no-gutters clickable" data-bind="click: function() {Battle.clickAttack()}" style="height: 220px; display: block;">
+                        <div class="col no-gutters clickable" data-bind="
+                            click: function() {
+                                if (!App.game.speedrunSettings.list.autoclicker.active())
+                                    Battle.clickAttack()
+                            },
+                            event: {
+                                mousedown: () => Battle.autoclick()
+                            }" style="height: 220px; display: block;">
                             <h2 class="pageItemTitle" style="display: block;">
                                 <knockout class="right" data-bind="using: App.game.statistics.routeKills[player.region][player.route()]()">
                                     <knockout data-bind="text: $data.toLocaleString('en-US')">0</knockout>

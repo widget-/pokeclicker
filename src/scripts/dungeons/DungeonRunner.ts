@@ -14,6 +14,8 @@ class DungeonRunner {
     public static defeatedBoss: KnockoutObservable<boolean> = ko.observable(false);
     public static dungeonFinished: KnockoutObservable<boolean> = ko.observable(false);
 
+    public static autoclicking = false;
+
     public static initializeDungeon(dungeon) {
         if (!dungeon.isUnlocked()) {
             return false;
@@ -77,6 +79,22 @@ class DungeonRunner {
         } else if (DungeonRunner.map.currentTile().type() === GameConstants.DungeonTile.boss && !DungeonRunner.fightingBoss()) {
             DungeonRunner.startBossFight();
         }
+    }
+
+    public static autoclick() {
+        if (this.autoclicking) {
+            return;
+        }
+        const autoclickingHandle = setInterval((() => this.handleClick()).bind(this), 100);
+        this.autoclicking = true;
+        const mouseUpHandler = () => {
+            if (this.autoclicking) {
+                clearInterval(autoclickingHandle);
+                this.autoclicking = false;
+            }
+            document.removeEventListener('mouseup', mouseUpHandler);
+        };
+        document.addEventListener('mouseup', mouseUpHandler);
     }
 
     public static lootInput() {

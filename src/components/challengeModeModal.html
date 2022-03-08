@@ -8,28 +8,72 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>
-                    <strong>Activate in game challenge modes!</strong><br/>
-                    Challenges can be disabled later, but cannot be re-enabled.
-                </p>
-                <br/>
-                <table class="table" width="100%">
-                    <tbody data-bind="foreach: Object.values(App.game.challenges.list)">
-                        <tr data-bind="tooltip: {
+                <ul class="nav nav-tabs nav-fill">
+                    <li class="nav-item"><a data-toggle='tab' class='nav-link active' href="#challengeModes">Challenge
+                            modes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle='tab' class='nav-link' href="#speedrunSettings">Speedrun
+                            settings</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="challengeModes" class="tab-pane active p-3">
+                        <!-- Challenge settings -->
+                        <p>
+                            <strong>Activate in game challenge modes!</strong><br/>
+                            Challenges can be disabled later, but cannot be re-enabled.
+                        </p>
+                        <br/>
+                        <table class="table" width="100%">
+                            <tbody data-bind="foreach: Object.values(App.game.challenges.list)">
+                                <tr data-bind="tooltip: {
+                                    title: $data.description,
+                                    placement: 'bottom',
+                                    trigger: 'hover'
+                                }">
+                                    <td class="text-left font-weight-bold" data-bind="text: $data.type"></td>
+                                    <td class="p-1">
+                                        <!-- ko if: !$data.active() && player.starter() == GameConstants.Starter.None --><button class="btn btn-warning btn-block" data-bind="click: ()=>{$data.activate();}">ACTIVATE</button><!-- /ko -->
+                                        <!-- ko if: !$data.active() && player.starter() != GameConstants.Starter.None --><button class="btn btn-secondary btn-block disabled">DISABLED</button><!-- /ko -->
+                                        <!-- ko if: $data.active() --><button class="btn btn-success btn-block" data-bind="click: ()=>{$data.disable();}">ACTIVE</button><!-- /ko -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                    </div>
+                    <div id="speedrunSettings" class="tab-pane p-3">
+                        <!-- Speedrun settings -->
+                        <p>
+                            <strong>Settings for speedruns!</strong><br />
+                            Speedrun settings cannot be changed during a run.
+                        </p>
+                        <br />
+                        <table class="table" width="100%">
+                            <tbody data-bind="foreach: Object.values(App.game.speedrunSettings.list)">
+                                <tr data-bind="tooltip: {
                             title: $data.description,
                             placement: 'bottom',
                             trigger: 'hover'
                         }">
-                            <td class="text-left font-weight-bold" data-bind="text: $data.type"></td>
-                            <td class="p-1">
-                                <!-- ko if: !$data.active() && player.starter() == GameConstants.Starter.None --><button class="btn btn-warning btn-block" data-bind="click: ()=>{$data.activate();}">ACTIVATE</button><!-- /ko -->
-                                <!-- ko if: !$data.active() && player.starter() != GameConstants.Starter.None --><button class="btn btn-secondary btn-block disabled">DISABLED</button><!-- /ko -->
-                                <!-- ko if: $data.active() --><button class="btn btn-success btn-block" data-bind="click: ()=>{$data.disable();}">ACTIVE</button><!-- /ko -->
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <br/>
+                                    <td class="text-left font-weight-bold" data-bind="text: $data.type"></td>
+                                    <td class="p-1">
+                                        <!-- ko if: !$data.active() && player.starter() == GameConstants.Starter.None --><button
+                                            class="btn btn-warning btn-block"
+                                            data-bind="click: ()=>{$data.activate();}">ACTIVATE</button><!-- /ko -->
+                                        <!-- ko if: !$data.active() && player.starter() != GameConstants.Starter.None --><button
+                                            class="btn btn-secondary btn-block disabled">DISABLED</button><!-- /ko -->
+                                        <!-- ko if: $data.active() --><button class="btn btn-success btn-block"
+                                            data-bind="click: ()=>{$data.disable();}">ACTIVE</button><!-- /ko -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
                <button class="btn btn-primary btn-block" data-dismiss="modal">Done!</button>
             </div>
        </div>

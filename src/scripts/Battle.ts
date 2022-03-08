@@ -14,6 +14,7 @@ class Battle {
     static lastPokemonAttack = Date.now();
     static lastClickAttack = Date.now();
     static route;
+    static autoclicking = false;
 
     /**
      * Probably not needed right now, but might be if we add more logic to a gameTick.
@@ -66,6 +67,22 @@ class Battle {
         if (!this.enemyPokemon().isAlive()) {
             this.defeatPokemon();
         }
+    }
+
+    public static autoclick() {
+        if (this.autoclicking) {
+            return;
+        }
+        const autoclickingHandle = setInterval((() => this.clickAttack()).bind(this), 100);
+        this.autoclicking = true;
+        const mouseUpHandler = () => {
+            if (this.autoclicking) {
+                clearInterval(autoclickingHandle);
+                this.autoclicking = false;
+            }
+            document.removeEventListener('mouseup', mouseUpHandler);
+        };
+        document.addEventListener('mouseup', mouseUpHandler);
     }
 
     /**

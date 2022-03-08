@@ -1,6 +1,13 @@
 <div class="row justify-content-center no-gutters" data-bind="if: App.game.gameState === GameConstants.GameState.dungeon">
     <div class="col no-gutters clickable" style="height: 220px; display: block;"
-        data-bind="click: function() { DungeonRunner.handleClick() }">
+    data-bind="
+        click: function() {
+            if (!App.game.speedrunSettings.list.autoclicker.active())
+                DungeonRunner.handleClick()
+        },
+        event: {
+            mousedown: () => DungeonRunner.autoclick()
+        }">
         <h2 class="pageItemTitle" style="display: block;">
             <knockout data-bind="if: DungeonBattle.enemyPokemon() && DungeonBattle.enemyPokemon().health()">
                 <knockout data-bind="text: DungeonBattle.enemyPokemon().name">Pokémon name</knockout>

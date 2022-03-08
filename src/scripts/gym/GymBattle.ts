@@ -16,6 +16,7 @@ class GymBattle extends Battle {
             super.clickAttack();
         }
     }
+
     /**
      * Award the player with exp, and go to the next pokemon
      */

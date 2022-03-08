@@ -4,6 +4,7 @@ import type BadgeCase from './DataStore/BadgeCase';
 import type Profile from './profile/Profile';
 import type Statistics from './DataStore/StatisticStore';
 import type Challenges from './challenges/Challenges';
+import type SpeedrunSettings from './speedrun/SpeedrunSettings';
 import type Multiplier from './multiplier/Multiplier';
 import type { GameState, Region } from './GameConstants';
 import type PokemonType from './enums/PokemonType';
@@ -42,6 +43,7 @@ type TmpGameType = {
     discord: any,
     achievementTracker: any,
     challenges: Challenges,
+    speedrunSettings: SpeedrunSettings,
     multiplier: Multiplier
 
     // There are functions we could mention too,

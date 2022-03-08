@@ -39,6 +39,7 @@ class Game {
         public discord: Discord,
         public achievementTracker: AchievementTracker,
         public challenges: Challenges,
+        public speedrunSettings: SpeedrunSettings,
         public battleFrontier: BattleFrontier,
         public multiplier: Multiplier
     ) {
